@@ -5,9 +5,6 @@ public class Card {
     private Random objRandom = new Random();
     private int intCardValue = 0;
 
-//   enum Suite {Clubs, Diamonds, Hearts, Spades}
-//    enum Face {Joker, Ace, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King}
-
     public Card()
     {
         this.intCardValue = objRandom.nextInt(52) + 1;
@@ -15,15 +12,15 @@ public class Card {
 
     public Card(int pintCard)
     {
+        if ((pintCard < 1) || (pintCard > 52)) {
+            pintCard = 1;
+            System.err.println("Card::Card - Invalid card value setting to 1.");
+        }
         this.intCardValue = pintCard;
     }
 
     public int getFace() {
         return ((intCardValue - 1) % 13) + 1;
-    }
-
-    public int getSuite() {
-        return (intCardValue - 1) / 13;
     }
 
     public int getFaceValue() {
@@ -37,12 +34,9 @@ public class Card {
         return intFaceValue;
     }
 
-    public String toString() {
+    public String getFaceString() {
         String strReturn = "";
         int intFace = this.getFace();
-        int intSuite = this.getSuite();
-
-    //Text face value
         if(intFace == 1) {
             strReturn += "Ace";
         } else if (intFace == 11) {
@@ -53,11 +47,17 @@ public class Card {
             strReturn += "King";
         } else {
             strReturn += intFace;
-        }   
+        }
+        return strReturn;
+    }
 
-        strReturn += " of ";
+    public int getSuite() {
+        return (intCardValue - 1) / 13;
+    }
 
-        //Suite as string
+    public String getSuiteString() {
+        String strReturn = "";
+        int intSuite = this.getSuite();
         if(intSuite == 0) {
             strReturn += "Club";
         } else if (intSuite == 1) {
@@ -67,7 +67,14 @@ public class Card {
         } else if (intSuite == 3) {
             strReturn += "Spades";
         }
+        return strReturn;
+    }
 
+    public String toString() {
+        String strReturn = "";
+        strReturn += this.getFaceString();
+        strReturn += " of ";
+        strReturn += this.getSuiteString();
         return strReturn;
     }
 

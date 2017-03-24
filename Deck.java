@@ -14,6 +14,7 @@ public class Deck {
         int intCounter = 0;
         while(intCounter < intDecks) {
             init();
+            intCounter++;
         }
     }
 
@@ -26,19 +27,51 @@ public class Deck {
     }
 
     public int percentLeft() {
-        return 0;
+
+        return ((this.intCounterDeck * 100) / aryDeck.size()); // TODO: Implement percent
     }
 
     public boolean shouldShuffle() {
-        return true;
+        int intShufflePercent = 75;
+        int intCurrentPercent = percentLeft();
+        //System.out.println("Deck %: " + intCurrentPercent);
+        if(intCurrentPercent > intShufflePercent) {
+            return true;
+        }
+
+        return false;
     }
 
     public void shuffle() {
         System.out.println("Shuffling...");
         Collections.shuffle(aryDeck);
+        intCounterDeck = 0;
     }
 
     public Card getCard() {
         return aryDeck.get(intCounterDeck++);
+    }
+
+    public String toString() {
+        return aryDeck.toString() + " - %" + percentLeft();
+    }
+
+    public static void main(String [] strArgs) {
+        //Variables
+        Deck objDeck = new Deck();
+        int intTestNumberOfCards = 60;
+        int intCurrentCard = 0;
+
+        System.out.println(objDeck);
+
+        while(intCurrentCard < intTestNumberOfCards) {
+            if(objDeck.shouldShuffle()) {
+                objDeck.shuffle();
+                System.out.println(objDeck);
+            }
+            System.out.println(objDeck.getCard());
+            intCurrentCard++;
+        }
+        
     }
 }

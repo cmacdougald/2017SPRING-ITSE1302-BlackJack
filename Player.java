@@ -2,16 +2,30 @@ import java.util.ArrayList;
 
 public class Player {
 
+    static int intTotalNumberOfPlayers = 0;
     private ArrayList<Card> aryHand = new ArrayList<Card>();
+    int intCurrentBet = 0;
+    int intMoney = 2000;
+    String strName = "no one";
 
-    public void name(int intPlayerNumber) {
+    public Player() {
+        name(++intTotalNumberOfPlayers);
     }
 
-    public void name(String strName) {
+    public Player(String pstrName) {
+        name(pstrName);
+    }
+
+    public void name(int intPlayerNumber) {
+        name("Player " + intPlayerNumber);
+    }
+
+    public void name(String pstrName) {
+        strName = pstrName;
     }
 
     public String name() {
-        return "no one";
+        return strName;
     }
 
     public void setMoney(int intMoney) {
@@ -25,12 +39,33 @@ public class Player {
 
     }
 
+    public void inputBet() {
+        //TODO: Input using scanner the bet value
+    }
+
     public int getBet() {
         return 0;
     }
 
     public int getTotalFaceValue() {
-        return 0;
+        int intFaceValueTotal = 0;
+        int intCurrentCard = 0;
+        Card objCard = null;
+        boolean hasAce = false;
+        while(intCurrentCard < aryHand.size()){
+            objCard = aryHand.get(intCurrentCard);
+            intFaceValueTotal += objCard.getFaceValue();
+            if(objCard.getFace() == 1) {
+                hasAce = true;
+            }
+            intCurrentCard++;
+        }
+
+        if(hasAce && intFaceValueTotal <= 11) {
+            intFaceValueTotal += 10;
+        }
+
+        return intFaceValueTotal;
     }
 
     public void addCard(Card objCard) {
@@ -42,15 +77,10 @@ public class Player {
     }
 
     public void printHand() {
-        int intIndex = 0;
-        while(intIndex < aryHand.size()) {
-            System.out.print(aryHand.get(intIndex));
-            System.out.print(" | ");
-            intIndex++;
-        }
-        System.out.println();
+        System.out.println(aryHand + " Total: " + getTotalFaceValue());
     }
 
     public void printMoney() {
+        System.out.println("Total: $" + intMoney + "\tBet: $" + intCurrentBet);
     }
 }
