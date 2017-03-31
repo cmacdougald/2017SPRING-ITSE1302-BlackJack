@@ -37,17 +37,24 @@ public class Card {
     public String getFaceString() {
         String strReturn = "";
         int intFace = this.getFace();
-        if(intFace == 1) {
-            strReturn += "Ace";
-        } else if (intFace == 11) {
-            strReturn += "Jack";
-        } else if (intFace == 12) {
-            strReturn += "Queen";
-        } else if (intFace == 13) {
-            strReturn += "King";
-        } else {
-            strReturn += intFace;
+        switch(intFace)
+        {
+            case 1:
+                strReturn += "Ace";
+                break;
+            case 11:
+                strReturn += "Jack";
+                break;
+            case 12:
+                strReturn += "Queen";
+                break;
+            case 13:
+                strReturn += "King";
+                break;
+            default:
+                strReturn += intFace;
         }
+
         return strReturn;
     }
 
