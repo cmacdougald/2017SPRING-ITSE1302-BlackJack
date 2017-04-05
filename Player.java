@@ -28,7 +28,8 @@ public class Player {
         return strName;
     }
 
-    public void setMoney(int intMoney) {
+    public void setMoney(int pintMoney) {
+        intMoney = pintMoney;
     }
 
     public int getMoney() {

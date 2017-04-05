@@ -1,12 +1,23 @@
-import java.util.ArrayList;
+package blackjack;
 
+import java.util.ArrayList;
+/**
+ * Class stub out for the beginning of a blackjack game.
+ */
 public class BlackJack {
 
+    /**
+     * Just a simple starting point for the class and it 
+     * starts by playing a round.
+     */
     public static void main(String [] strArgs) {
         BlackJack objGame = new BlackJack();
         objGame.playRound();
     }
 
+    /**
+     * Incomplete concept of how you might play one round of blackjack.
+     */
     public void playRound() {
         Deck objDeck = new Deck();
         objDeck.shuffle();
