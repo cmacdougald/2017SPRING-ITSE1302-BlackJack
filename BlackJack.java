@@ -1,5 +1,3 @@
-package blackjack;
-
 import java.util.ArrayList;
 /**
  * Class stub out for the beginning of a blackjack game.
@@ -16,16 +14,45 @@ public class BlackJack {
     }
 
     /**
+     * Simple dealer logic to hard stop at 16.
+     * @param Player Player you want to add cards to until they get over 16.
+     * @param Deck Deak you want to get cards from.
+     * @return Player Player instance with new cards added.
+     */
+    public Player dealerLogic(Player objDealer, Deck objDeck) {
+        return dealerLogic(objDealer, objDeck, 16);
+    }
+
+    /**
+     * Simple dealer logic to hard stop at a certain point.
+     * @param Player Player you want to add cards to until they get over intStop.
+     * @param Deck Deak you want to get cards from.
+     * @param int The total face value that stops the cards from being added.
+     * @return Player Player instance with new cards added.
+     */
+    public Player dealerLogic(Player objDealer, Deck objDeck, int intStop) {
+        while(objDealer.getTotalFaceValue() <= intStop &&
+            objDealer.getNumberOfCards() < 4) {
+            objDealer.addCard(objDeck.getCard());        
+        }
+        return objDealer;
+    }
+
+    /**
      * Incomplete concept of how you might play one round of blackjack.
      */
     public void playRound() {
+        //TODO: Gut this logic and add your own function calls to play your own version of BlackJack.
+
         Deck objDeck = new Deck();
         objDeck.shuffle();
 
         ArrayList<Player> aryPlayers = new ArrayList<Player>();
         aryPlayers.add(new Player());
         aryPlayers.add(new Player());
-        aryPlayers.add(new Player("Dealer"));
+        Player objDealer = new Player("Dealer");
+        objDealer.setMoney(0);
+        aryPlayers.add(objDealer);
 
         int intCurrentPlayer = 0;
 
@@ -39,18 +66,18 @@ public class BlackJack {
             intCounter++;
         }
 
-        while(aryPlayers.get(aryPlayers.size()-1).getTotalFaceValue() <= 16) {
-
-            aryPlayers.get(aryPlayers.size()-1).addCard(objDeck.getCard());        
-        }
-
-
         intCurrentPlayer = 0;
         while(intCurrentPlayer < aryPlayers.size()) {
-            System.out.print(aryPlayers.get(intCurrentPlayer).name() + " ");
-            aryPlayers.get(intCurrentPlayer).printHand();
+            if(aryPlayers.get(intCurrentPlayer).hasMoney()) {
+                System.out.println(objDealer);
+                aryPlayers.get(intCurrentPlayer).inputBet();
+            }
             intCurrentPlayer++;
         }
+
+        this.dealerLogic(objDealer, objDeck);
+
+        System.out.println(aryPlayers);
 
         if(objDeck.shouldShuffle()) {
             objDeck.shuffle();
